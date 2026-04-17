@@ -1,0 +1,52 @@
+# ======================
+# Python
+# ======================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+env/
+venv/
+.venv/
+
+# ======================
+# Django
+# ======================
+db.sqlite3
+*.log
+staticfiles/
+
+# Media (if any later)
+media/
+
+# ======================
+# Environment variables
+# ======================
+.env
+
+# ======================
+# VS Code / Editor
+# ======================
+.vscode/
+.idea/
+
+# ======================
+# OS files
+# ======================
+.DS_Store
+Thumbs.db
+
+# ======================
+# Node / Angular (for later)
+# ======================
+node_modules/
+dist/
+.angular/
+
+# ======================
+# Docker (optional)
+# ======================
+*.pid
+*.seed
+*.sock
