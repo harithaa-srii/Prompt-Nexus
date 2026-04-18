@@ -1,0 +1,8 @@
+<button [type]="type" [disabled]="disabled" [ngClass]="{
+  'btn-primary': color === 'primary',
+  'btn-success': color === 'success',
+  'btn-warning': color === 'warning',
+  'btn-danger': color === 'danger'
+}">
+  {{ label }}
+</button>

@@ -1,0 +1,45 @@
+
+
+/* Remove default form outline for select in some browsers */
+select {
+	background-color: #232b3a !important;
+	color: #fff !important;
+	border: 1px solid #38405a !important;
+	border-radius: 0.75rem !important;
+	padding: 0.75rem 1.25rem !important;
+	font-size: 1.125rem !important;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	box-shadow: none;
+	min-width: 220px;
+	padding-right: 2.5rem !important;
+}
+.select-arrow {
+	pointer-events: none;
+	display: flex;
+	align-items: center;
+	height: 100%;
+}
+select:focus {
+	outline: none;
+	border-color: #a259f7 !important;
+}
+option {
+	background: #232b3a;
+	color: #fff;
+}
+
+/* Back to Prompts underline only on text */
+.back-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+.back-link-text {
+	border-bottom: 1.5px solid transparent;
+	transition: border-color 0.2s;
+}
+.back-link:hover .back-link-text {
+	border-bottom: 1.5px solid #a259f7;
+}

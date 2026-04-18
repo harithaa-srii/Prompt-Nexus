@@ -1,0 +1,37 @@
+
+/* Complexity badge colors */
+.complexity-badge.red {
+	background-color: #ef4444;
+	color: #fff;
+}
+.complexity-badge.yellow {
+	background-color: #eab308;
+	color: #fff;
+}
+.complexity-badge.green {
+	background-color: #22c55e;
+	color: #fff;
+}
+/* Navigation underline */
+.nav-link {
+	position: relative;
+	padding-bottom: 4px;
+	color: #c7bfff;
+	font-size: 1.1rem;
+	font-weight: 500;
+	text-decoration: none;
+	transition: color 0.2s;
+}
+.nav-link.active {
+	color: #a259f7;
+}
+.nav-link.active::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -2px;
+	height: 3px;
+	background: #a259f7;
+	border-radius: 2px;
+}

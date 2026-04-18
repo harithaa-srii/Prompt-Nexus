@@ -1,0 +1,21 @@
+
+:root {
+	--background-main: #0F172A;
+	--card-background: #1E293B;
+	--border: #334155;
+	--primary: #7C3AED;
+	--primary-hover: #6D28D9;
+	--text-primary: #F8FAFC;
+	--text-secondary: #CBD5F5;
+	--success: #22C55E;
+	--warning: #EAB308;
+	--danger: #EF4444;
+}
+
+body, html {
+	background: var(--background-main);
+	color: var(--text-primary);
+	font-family: 'Inter', sans-serif;
+	margin: 0;
+	padding: 0;
+}

@@ -1,0 +1,56 @@
+<div>
+  <!-- Header -->
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-4xl font-bold text-gray-100">Prompts</h1>
+
+    <button
+      class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-semibold text-lg shadow cursor-pointer"
+      (click)="goToCreate()"
+    >
+       Create Prompt
+    </button>
+  </div>
+
+  <!-- Async Data Handling -->
+  <ng-container *ngIf="prompts$ | async as prompts; else loadingTpl">
+
+    <!-- Empty State -->
+    <div *ngIf="prompts.length === 0" class="text-gray-300">
+      No prompts found.
+    </div>
+
+    <!-- Prompt List -->
+    <div *ngIf="prompts.length > 0" class="flex flex-col gap-6">
+      <div
+        *ngFor="let prompt of prompts"
+        class="bg-[#232b3a] border border-[#38405a] rounded-xl px-8 py-4 flex items-center justify-between shadow-md"
+      >
+        <div class="flex items-center gap-4">
+          <span class="text-xl font-semibold text-white">
+            {{ prompt.title }}
+          </span>
+
+          <span
+            class="complexity-badge text-base px-3 py-1 rounded font-semibold"
+            [ngClass]="getComplexityColor(prompt.complexity)"
+          >
+            {{ prompt.complexity }}
+          </span>
+        </div>
+
+        <button
+          class="bg-[#a259f7] hover:bg-[#7c3aed] text-white px-7 py-2 rounded-lg font-semibold text-base shadow cursor-pointer"
+          (click)="viewPrompt(prompt.id)"
+        >
+          View
+        </button>
+      </div>
+    </div>
+
+  </ng-container>
+
+  <!-- Loading -->
+  <ng-template #loadingTpl>
+    <div class="text-gray-300">Loading...</div>
+  </ng-template>
+</div>

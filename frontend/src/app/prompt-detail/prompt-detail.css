@@ -1,0 +1,27 @@
+/* Back to Prompts underline only on text */
+.back-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+.back-link-text {
+	border-bottom: 1.5px solid transparent;
+	transition: border-color 0.2s;
+}
+.back-link:hover .back-link-text {
+	border-bottom: 1.5px solid #a259f7;
+}
+
+/* Complexity badge colors */
+.complexity-badge.red {
+	background-color: #ef4444;
+	color: #fff;
+}
+.complexity-badge.yellow {
+	background-color: #f59e42;
+	color: #fff;
+}
+.complexity-badge.green {
+	background-color: #22c55e;
+	color: #fff;
+}
