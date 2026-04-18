@@ -1,59 +1,164 @@
-# Frontend
+# Prompt Nexus
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.2.
+Prompt Nexus is a full-stack web application for managing AI image generation prompts.  
+Users can create prompts, view them, and track how many times each prompt has been accessed using a Redis-based view counter.
 
-## Development server
+---
 
-To start a local development server, run:
+## Tech Stack
 
-```bash
-ng serve
+| Layer       | Technology        |
+|------------|------------------|
+| Frontend   | Angular          |
+| Backend    | Django (no DRF)  |
+| Database   | PostgreSQL       |
+| Cache      | Redis            |
+| DevOps     | Docker Compose   |
+
+---
+
+## Features
+
+### Backend
+- Prompt model with:
+  - id (UUID)
+  - title
+  - content
+  - complexity (1–10)
+  - created_at
+- REST API endpoints:
+  - `GET /prompts/` → list all prompts
+  - `POST /prompts/` → create a prompt
+  - `GET /prompts/:id/` → get prompt details
+- Redis integration:
+  - Each time a prompt is viewed, a counter is incremented
+  - View count is stored in Redis (not in PostgreSQL)
+
+---
+
+### Frontend
+- Prompt List Page
+  - Displays all prompts
+  - Shows complexity using color badges
+- Prompt Detail Page
+  - Displays full content
+  - Shows live view count from Redis
+- Create Prompt Page
+  - Form with validations:
+    - Title: minimum 3 characters
+    - Content: minimum 20 characters
+    - Complexity: between 1 and 10
+
+---
+
+## How It Works (High-Level Flow)
+
+1. User opens the frontend (Angular app)
+2. Angular calls Django APIs
+3. Django:
+   - Reads/writes prompt data from PostgreSQL
+   - Updates view count in Redis
+4. Response is sent back to frontend and displayed
+
+---
+
+## Project Structure
+# PromptNexus/
+
+```
+├── backend/
+│ ├── core/ # Django project config
+│ ├── prompts/ # App (models, views, APIs)
+│ ├── Dockerfile
+│ └── requirements.txt
+├── frontend/
+│ ├── src/ # Angular app
+│ ├── Dockerfile
+│ └── package.json
+├── docker-compose.yml # Runs entire stack
+└── README.md
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## Setup Instructions
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Prerequisites
+- Docker Desktop installed
+- Docker is running
 
+---
+
+## Run the Application
+
+From the project root:
 ```bash
-ng generate component component-name
+docker-compose up --build
 ```
+This will start:
+- Frontend (Angular)
+- Backend (Django)
+- PostgreSQL database
+- Redis cache
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Access the Application
+table of services and URLs:
+| Service | URL                            |
+|---------|--------------------------------|
+| Frontend | http://localhost:4200         |
+| Backend | http://localhost:9000/prompts/ |
 
-```bash
-ng generate --help
-```
+## Testing the Application
+1. Open the frontend:
+   - Go to [http://localhost:4200](http://localhost:4200)
+2. Create a prompt:
+   - Click "Create Prompt"
+   - Fill the form and submit.
+3. View prompts:
+   - Return to list page.
+   - Click any prompt.
+4. Verify Redis view count:
+   - Open a prompt detail page.
+   - Refresh multiple times.
+   - View count should increase.
+ 
+# Important Notes
 
-## Building
+- The database starts empty when Docker runs for the first time.
+- You need to create prompts manually using the UI.
+- Redis is used only for view counting and not for storing prompt data.
+- View count is not persisted in PostgreSQL.
 
-To build the project run:
+# Architectural Decisions
 
-```bash
-ng build
-```
+## 1. Why Django without DRF?
+- To follow the assignment requirement and demonstrate manual API handling using Django views.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## 2. Why Redis for view_count?
+- Faster than database writes
+- Suitable for frequently updated values
+- Avoids unnecessary load on PostgreSQL
 
-## Running unit tests
+## 3. Why Docker?
+- Ensures consistent setup across machines
+- Allows running full stack with a single command
+- Isolates services (frontend, backend, db, cache)
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## 4. Frontend Design Choices
+- Standalone Angular components for modular structure
+- Service layer for API calls
+- Environment-based configuration for API URLs
 
-```bash
-ng test
-```
+## Future Improvements
+- Add authentication (JWT/session)
+- Add tagging system for prompts
+- Add search and filtering
+- Deploy to cloud (Render, Railway, GCP)
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+# Conclusion
+This project demonstrates:
+- Full-stack development (Angular + Django)
+- API design without DRF
+defaultRedis caching integration
+defaultPostgreSQL usage
+defaultDocker-based deployment
